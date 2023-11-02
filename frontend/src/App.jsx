@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
 import { Button } from "./components/Button";
 import image from "./assets/background.png";
-// import { TrashIcon } from '@heroicons/react/outline';
-import DeleteIcon from './assets/icons/delete.svg'
-import EditIcon from './assets/icons/edit.svg'
-import AddIcon from './assets/icons/add.svg'
+import DeleteIcon from "./assets/icons/delete.svg";
+import EditIcon from "./assets/icons/edit.svg";
+import AddIcon from "./assets/icons/add.svg";
+import { Modal } from "./components/Modal";
 
 function App() {
   const [data, setData] = useState([]);
   const [name, setName] = useState("");
   const [power, setPower] = useState("");
   const [selectedHeroes, setSelectedHeroes] = useState([]);
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     fetch("/api")
       .then((response) => response.json())
       .then((result) => {
-        // alert(`${result[0].name}!`)
         setData(result);
       });
   }, []);
@@ -47,8 +47,9 @@ function App() {
       .catch((error) => {
         console.error("Error:", error);
       });
-      setName('')
-      setPower('')
+    setName("");
+    setPower("");
+    setIsOpen(false)
   };
 
   const handleSelect = (hero) => {
@@ -60,9 +61,6 @@ function App() {
       setSelectedHeroes([...selectedHeroes, hero]);
     }
     console.log(selectedHeroes);
-  };
-  const handleAdd = () => {
-    console.log("click");
   };
 
   const handleDelete = () => {
@@ -93,58 +91,74 @@ function App() {
 
   return (
     <>
+      <Modal open={isOpen} closeModal={() => setIsOpen(false)}>
+        <p>Add a superhero</p>
+        <form
+          action="POST"
+          onSubmit={handleOnSubmit}
+          className="flex flex-wrap gap-2 p-4 "
+        >
+          <input
+            type="text"
+            value={name}
+            placeholder="Superhero"
+            onChange={(event) => setName(event.target.value)}
+            className="px2 py-1 bg-white bg-opacity-80 rounded-sm focus:outline-none"
+          />
+          <input
+            type="text"
+            value={power}
+            placeholder="Powers"
+            onChange={(event) => setPower(event.target.value)}
+            className="px2 py-1 bg-white bg-opacity-80 rounded-sm focus:outline-none"
+          />
+          <input type="submit" value="lägg till" />
+        </form>
+      </Modal>
+
       <div
         className="bg-cover bg-center bg-no-repeat h-screen flex items-center justify-center"
         style={{ backgroundImage: `url(${image})` }}
       >
         <div className="bg-black bg-opacity-50 rounded w-11/12 md:w-8/12 text-white backdrop-filter backdrop-blur-md ">
           <div className="flex gap-2 justify-end">
-            <Button  onClick={handleAdd} icon={AddIcon} />
+            <Button onClick={() => setIsOpen(true)} icon={AddIcon} />
             <Button icon={EditIcon} />
-            <Button onClick={handleDelete} icon={DeleteIcon}/>
+            <Button onClick={handleDelete} icon={DeleteIcon} />
           </div>
           <div className="overflow-auto min-h-[400px] max-h-[400px]">
-          <table className="table-fixed border-collapse w-full ">
-            <thead>
-              <tr>
-                <th className="w-1/12"></th>
-                <th className="w-4/12 text-left px-4 py-2">Name</th>
-                <th className="w-7/12 text-left px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">Power</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((hero, index) => (
-                <tr key={index}>
-                  <td className="px-4 py-2">
-                    <input
-                      type="checkbox"
-                      className="appearance-none bg-white bg-check h-3 w-3 border border-black-300  checked:bg-fuchsia-700 checked:border-transparent focus:outline-none"
-                      checked={selectedHeroes.includes(hero)}
-                      onChange={() => handleSelect(hero)}
-                    />
-                  </td>
-                  <td className="px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">{hero.name}</td>
-                  <td className="px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">{hero.power}</td>
+            <table className="table-fixed border-collapse w-full ">
+              <thead>
+                <tr>
+                  <th className="w-1/12"></th>
+                  <th className="w-4/12 text-left px-4 py-2">Name</th>
+                  <th className="w-7/12 text-left px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
+                    Power
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {data.map((hero, index) => (
+                  <tr key={index}>
+                    <td className="px-4 py-2">
+                      <input
+                        type="checkbox"
+                        className="appearance-none bg-white bg-check h-3 w-3 border border-black-300  checked:bg-fuchsia-700 checked:border-transparent focus:outline-none"
+                        checked={selectedHeroes.includes(hero)}
+                        onChange={() => handleSelect(hero)}
+                      />
+                    </td>
+                    <td className="px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
+                      {hero.name}
+                    </td>
+                    <td className="px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
+                      {hero.power}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          <form action="POST" onSubmit={handleOnSubmit} className="flex flex-wrap gap-2 p-4 ">
-            <input
-              type="text"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              className="px2 py-1 bg-white bg-opacity-80 rounded-sm focus:outline-none"
-            />
-            <input
-              type="text"
-              value={power}
-              onChange={(event) => setPower(event.target.value)}
-              className="px2 py-1 bg-white bg-opacity-80 rounded-sm focus:outline-none"                                                                                                                          
-            />
-            <input type="submit" value="lägg till" />
-          </form>
         </div>
       </div>
     </>
