@@ -47,6 +47,8 @@ function App() {
       .catch((error) => {
         console.error("Error:", error);
       });
+      setName('')
+      setPower('')
   };
 
   const handleSelect = (hero) => {
@@ -95,16 +97,14 @@ function App() {
         className="bg-cover bg-center bg-no-repeat h-screen flex items-center justify-center"
         style={{ backgroundImage: `url(${image})` }}
       >
-        <div className="bg-black bg-opacity-50 rounded w-11/12 md:w-8/12 text-white backdrop-filter backdrop-blur-md">
-          <div className="flex gap-2">
+        <div className="bg-black bg-opacity-50 rounded w-11/12 md:w-8/12 text-white backdrop-filter backdrop-blur-md ">
+          <div className="flex gap-2 justify-end">
             <Button  onClick={handleAdd} icon={AddIcon} />
             <Button icon={EditIcon} />
             <Button onClick={handleDelete} icon={DeleteIcon}/>
-          
-           
-            
           </div>
-          <table className="table-fixed border-collapse w-full overflow-hidden">
+          <div className="overflow-auto min-h-[400px] max-h-[400px]">
+          <table className="table-fixed border-collapse w-full ">
             <thead>
               <tr>
                 <th className="w-1/12"></th>
@@ -118,7 +118,7 @@ function App() {
                   <td className="px-4 py-2">
                     <input
                       type="checkbox"
-                      className="appearance-none bg-white bg-check h-3 w-3 border border-black-300  checked:bg-black checked:border-transparent focus:outline-none"
+                      className="appearance-none bg-white bg-check h-3 w-3 border border-black-300  checked:bg-fuchsia-700 checked:border-transparent focus:outline-none"
                       checked={selectedHeroes.includes(hero)}
                       onChange={() => handleSelect(hero)}
                     />
@@ -129,16 +129,19 @@ function App() {
               ))}
             </tbody>
           </table>
-          <form action="POST" onSubmit={handleOnSubmit} className="flex flex-wrap gap-2 p-4">
+          </div>
+          <form action="POST" onSubmit={handleOnSubmit} className="flex flex-wrap gap-2 p-4 ">
             <input
               type="text"
-            
+              value={name}
               onChange={(event) => setName(event.target.value)}
+              className="px2 py-1 bg-white bg-opacity-80 rounded-sm focus:outline-none"
             />
             <input
               type="text"
-        
+              value={power}
               onChange={(event) => setPower(event.target.value)}
+              className="px2 py-1 bg-white bg-opacity-80 rounded-sm focus:outline-none"                                                                                                                          
             />
             <input type="submit" value="lägg till" />
           </form>
