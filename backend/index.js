@@ -36,9 +36,7 @@ app.post("/api", async (request, response) => {
     response.status(201).send(rows);
   } catch (error) {
     console.error(error);
-    response
-      .status(500)
-      .send("An error occurred while processing your request.");
+    response.status(500).send("FAIL");
   }
 });
 
@@ -53,9 +51,7 @@ app.delete("/api", async (request, response) => {
     response.status(200).send(rows);
   } catch (error) {
     console.error(error);
-    response
-      .status(500)
-      .send("An error occurred while processing your request.");
+    response.status(500).send("FAIL");
   }
 });
 

@@ -35,7 +35,7 @@ function App() {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`FAIL ${response.status}`);
         }
         return response.json();
       })
@@ -44,7 +44,7 @@ function App() {
         setData(data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("FAIL", error);
       });
     setName("");
     setPower("");
@@ -74,17 +74,16 @@ function App() {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`FAIL ${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
-        console.log("Success:", data);
         setData(data);
         setSelectedHeroes([]);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("FAIL", error);
       });
   };
 
