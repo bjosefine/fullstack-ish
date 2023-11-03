@@ -10,7 +10,7 @@ function App() {
   const [name, setName] = useState("");
   const [power, setPower] = useState("");
   const [selectedHeroes, setSelectedHeroes] = useState([]);
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api")
@@ -48,7 +48,7 @@ function App() {
       });
     setName("");
     setPower("");
-    setIsOpen(false)
+    setIsOpen(false);
   };
 
   const handleSelect = (hero) => {
