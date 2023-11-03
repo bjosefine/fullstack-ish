@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Button } from "./components/Button";
 import image from "./assets/background.png";
 import DeleteIcon from "./assets/icons/delete.svg";
-import EditIcon from "./assets/icons/edit.svg";
 import AddIcon from "./assets/icons/add.svg";
 import { Modal } from "./components/Modal";
 
@@ -103,14 +102,14 @@ function App() {
             value={name}
             placeholder="Superhero"
             onChange={(event) => setName(event.target.value)}
-            className="px2 py-1 bg-white bg-opacity-80 rounded-sm focus:outline-none"
+            className="px2 py-1 border-2 border-black rounded-sm focus:outline-none"
           />
           <input
             type="text"
             value={power}
             placeholder="Powers"
             onChange={(event) => setPower(event.target.value)}
-            className="px2 py-1 bg-white bg-opacity-80 rounded-sm focus:outline-none"
+            className="px2 py-1 border-2 border-black rounded-sm focus:outline-none"
           />
           <input type="submit" value="lägg till" />
         </form>
@@ -123,7 +122,6 @@ function App() {
         <div className="bg-black bg-opacity-50 rounded w-11/12 md:w-8/12 text-white backdrop-filter backdrop-blur-md ">
           <div className="flex gap-2 justify-end">
             <Button onClick={() => setIsOpen(true)} icon={AddIcon} />
-            <Button icon={EditIcon} />
             <Button onClick={handleDelete} icon={DeleteIcon} />
           </div>
           <div className="overflow-auto min-h-[400px] max-h-[400px]">
