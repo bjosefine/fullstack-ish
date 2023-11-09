@@ -3,3 +3,6 @@ CREATE TABLE IF NOT EXISTS superheroes (
     name text UNIQUE NOT NULL,
     power text
 )
+
+INSERT INTO superheroes (name, power)
+VALUES ('Spider-Man', 'Web slinging')
