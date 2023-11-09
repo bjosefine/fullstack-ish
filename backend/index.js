@@ -18,7 +18,7 @@ client.connect();
 
 app.get("/api", async (_request, response) => {
   const { rows } = await client.query("SELECT * FROM superheroes");
-
+  console.log(rows, "my rows brings all the objects to the log");
   response.send(rows);
 });
 
