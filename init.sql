@@ -4,5 +4,6 @@ CREATE TABLE IF NOT EXISTS superheroes (
     power text
 )
 
-INSERT INTO superheroes (name, power)
-VALUES ('Spider-Man', 'Web slinging')
+-- INSERT INTO superheroes (name, power)
+-- VALUES ('Spider-Man', 'Web slinging'),
+-- ('Sfsal', 'lkfjl')
