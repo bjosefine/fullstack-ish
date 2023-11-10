@@ -16,13 +16,13 @@ const client = new Client({
 
 client.connect();
 
-app.get("/api", async (_request, response) => {
+app.get("/", async (_request, response) => {
   const { rows } = await client.query("SELECT * FROM superheroes");
   console.log(rows, "my rows brings all the objects to the log");
   response.send(rows);
 });
 
-app.post("/api", async (request, response) => {
+app.post("/", async (request, response) => {
   try {
     let name = request.body.name;
     let power = request.body.power;
@@ -40,7 +40,7 @@ app.post("/api", async (request, response) => {
   }
 });
 
-app.delete("/api", async (request, response) => {
+app.delete("/", async (request, response) => {
   try {
     const ids = request.body.ids;
 
